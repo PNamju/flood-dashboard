@@ -68,9 +68,4 @@ jobs:
         cd /tmp/gh-pages
         git add .
         git commit -m "Deploy to GitHub Pages"
-        
-        # Pull latest changes from remote gh-pages branch to avoid conflicts
-        git pull origin gh-pages --rebase
-        
-        # Push changes to remote gh-pages branch
         git push origin gh-pages
