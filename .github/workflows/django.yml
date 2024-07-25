@@ -75,4 +75,4 @@ jobs:
         git pull origin gh-pages --rebase
         
         # Push changes to remote gh-pages branch
-        git push origin gh-pages
+        git push origin gh-pages --force
