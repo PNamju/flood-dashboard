@@ -50,7 +50,6 @@ jobs:
         if git show-ref --quiet refs/heads/gh-pages; then
           echo "gh-pages branch exists"
           git checkout gh-pages
-          git pull origin gh-pages
         else
           echo "gh-pages branch does not exist. Creating gh-pages branch."
           git checkout --orphan gh-pages
@@ -75,4 +74,4 @@ jobs:
         git pull origin gh-pages --rebase
         
         # Push changes to remote gh-pages branch
-        git push origin gh-pages --force
+        git push origin gh-pages
