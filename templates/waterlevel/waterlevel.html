@@ -1,0 +1,23 @@
+{% extends 'main/navbar.html' %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/waterlevel.css' %}">
+<title>회원가입</title>
+{% endblock %}
+
+{% block content %}
+<div class="waterlevel-container">
+    <div class="horizontal-container">
+        <div id="map"></div>
+        <div id="data-container" class="grid-container info-container">
+            <div id="waterlevel-info">관측소를 클릭하여 수위 정보를 확인하세요.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/waterlevel.js' %}"></script>
+{% endblock %}
