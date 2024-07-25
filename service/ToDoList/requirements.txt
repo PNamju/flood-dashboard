@@ -1,7 +1,7 @@
-django==5.0.6
-langchain-openai
-langchain-community
-openai
+django==3.2.6
+langchain-openai==0.1.15
+langchain-community==0.2.7
+openai==1.35.13
 geopy
 faiss-cpu
 tiktoken
@@ -10,4 +10,7 @@ openpyxl
 scikit-learn==1.5.0
 torch==2.3.1
 ultralytics==8.2.57
-pydantic==1.10.2
+pydantic==2.8.2
+django-environ>=0.4.5
+chromadb==0.5.0
+numpy==1.24.3
