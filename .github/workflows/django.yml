@@ -16,41 +16,41 @@ jobs:
         python-version: [3.9]
 
     steps:
-    
-uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    
-name: Set up Python ${{ matrix.python-version }}
-    uses: actions/setup-python@v3
-    with:
-      python-version: ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
 
-    
-name: Install Dependencies
-    run: |
-      cd service/ToDoList
-      python -m pip install --upgrade pip
-      pip3 install -r requirements.txt
+    - name: Install Dependencies
+      run: |
+        cd service/ToDoList
+        python -m pip install --upgrade pip
+        pip3 install -r requirements.txt
 
     # - name: Run Tests
     #   run: |
     #     cd service/ToDoList
     #     python3 manage.py test
 
-    
-name: Deploy to GitHub Pages
-    if: success()
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    run: |# Configure Git
-      git config --global user.name 'github-actions[bot]'
-      git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      # Fetch all branches
-      git fetch origin
+    - name: Deploy to GitHub Pages
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Configure Git
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+        # Fetch all branches
+        git fetch origin
 
         # Check if gh-pages branch exists
         if git show-ref --quiet refs/heads/gh-pages; then
           echo "gh-pages branch exists"
+          git checkout gh-pages
+          git pull origin gh-pages
         else
           echo "gh-pages branch does not exist. Creating gh-pages branch."
           git checkout --orphan gh-pages
@@ -70,4 +70,9 @@ name: Deploy to GitHub Pages
         cd /tmp/gh-pages
         git add .
         git commit -m "Deploy to GitHub Pages"
+        
+        # Pull latest changes from remote gh-pages branch to avoid conflicts
+        git pull origin gh-pages --rebase
+        
+        # Push changes to remote gh-pages branch
         git push origin gh-pages
