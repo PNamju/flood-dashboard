@@ -54,4 +54,23 @@ jobs:
           git checkout --orphan gh-pages
           git reset --hard
           git commit --allow-empty -m "Initial commit on gh-pages branch"
-          git push origin
+          git push origin gh-pages
+          git checkout main
+        fi
+
+        # Create a new worktree for the gh-pages branch
+        git worktree add /tmp/gh-pages gh-pages
+
+        # Copy the relevant files to the worktree
+        cp -r service/ToDoList/* /tmp/gh-pages/
+
+        # Commit and push the changes
+        cd /tmp/gh-pages
+        git add .
+        git commit -m "Deploy to GitHub Pages"
+        
+        # Pull latest changes from remote gh-pages branch to avoid conflicts
+        git pull origin gh-pages --rebase
+        
+        # Push changes to remote gh-pages branch
+        git push origin gh-pages
